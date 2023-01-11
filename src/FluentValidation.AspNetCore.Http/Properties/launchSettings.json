@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "FluentValidation.AspNetCore.Http": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:52948;http://localhost:52949"
+    }
+  }
+}
