@@ -9,7 +9,7 @@
   <PropertyGroup>
     <Product>FluentValidation.AspNetCore.Http</Product>
     <Description>ASP.NET Core 7+ Minimal API integration for FluentValidation.</Description>
-    <PackageTags>FluentValidation, asp.net core, AspNetCore, minimal api, minimal hosting</PackageTags>
+    <PackageTags>fluentvalidation fluent-validation asp-net-core minimal-api</PackageTags>
     <RepositoryUrl>https://github.com/Carl-Hugo/FluentValidation.AspNetCore.Http</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <LangVersion>latest</LangVersion>
