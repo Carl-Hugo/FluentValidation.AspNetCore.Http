@@ -4,11 +4,21 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace FluentValidation.AspNetCore.Http.Tests;
 
-public abstract class MinimalHostingTestApp : IDisposable, IAsyncDisposable
+public class MinimalHostingTestApp : IDisposable, IAsyncDisposable
 {
     private WebApplication? _webApplication;
     private TestServer? _testServer;
     private HttpClient? _client;
+    private readonly Action<WebApplicationBuilder>? _configureBuilder;
+    private readonly Action<WebApplication>? _configureApp;
+
+    public MinimalHostingTestApp(
+        Action<WebApplicationBuilder>? configureBuilder = default,
+        Action<WebApplication>? configureApp = default)
+    {
+        _configureBuilder = configureBuilder;
+        _configureApp = configureApp;
+    }
 
     public TestServer Server
     {
@@ -42,11 +52,11 @@ public abstract class MinimalHostingTestApp : IDisposable, IAsyncDisposable
         var builder = WebApplication.CreateBuilder();
         builder.WebHost.UseTestServer();
         builder.Environment.EnvironmentName = "Testing";
-        builder.AddFluentValidationEndpointFilter(ConfigureFluentValidationEndpointFilterSettings);
-        ConfigureWebApplicationBuilder(builder);
+        _configureBuilder?.Invoke(builder);
 
         var app = _webApplication = builder.Build();
-        ConfigureWebApplication(app);
+        _configureApp?.Invoke(app);
+
         var task = _webApplication.RunAsync();
         _testServer = _webApplication.GetTestServer();
         await task;
@@ -63,11 +73,6 @@ public abstract class MinimalHostingTestApp : IDisposable, IAsyncDisposable
         _client = _testServer.CreateClient();
         return _client;
     }
-
-    public abstract void ConfigureFluentValidationEndpointFilterSettings(FluentValidationEndpointFilterSettings settings);
-    public abstract void ConfigureWebApplicationBuilder(WebApplicationBuilder builder);
-    public abstract void ConfigureWebApplication(WebApplication app);
-
 
     #region Disposable
     private bool _disposedAsync;
