@@ -7,9 +7,9 @@ public class FluentValidationEndpointFilterSettings
 {
     /// <summary>
     /// The dependency scanning stragtegy.<br /><br />
-    /// <strong>Default:</strong> <see cref="ScanningStrategy.ScanUntilNoValidatorFound"/>.
+    /// <strong>Default:</strong> <see cref="ScanningStrategy.ScanAllParams"/>.
     /// </summary>
-    public required ScanningStrategy ScanningStrategy { get; set; } = ScanningStrategy.ScanUntilNoValidatorFound;
+    public required ScanningStrategy ScanningStrategy { get; set; } = ScanningStrategy.ScanAllParams;
 }
 
 /// <summary>
