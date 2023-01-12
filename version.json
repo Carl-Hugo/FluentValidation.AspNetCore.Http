@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AArnott/Nerdbank.GitVersioning/master/src/NerdBank.GitVersioning/version.schema.json",
+  "version": "1.0",
+  "publicReleaseRefSpec": ["^refs/heads/main-no-release-yet$"],
+  "cloudBuild": {
+    "buildNumber": {
+      "enabled": true
+    }
+  }
+}

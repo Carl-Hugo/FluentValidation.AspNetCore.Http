@@ -1,2 +1,3 @@
 # FluentValidation.AspNetCore.Http
-ASP.NET Core Minimal integration of FluentValidation.
+
+ASP.NET Core 7+ Minimal API integration for FluentValidation.

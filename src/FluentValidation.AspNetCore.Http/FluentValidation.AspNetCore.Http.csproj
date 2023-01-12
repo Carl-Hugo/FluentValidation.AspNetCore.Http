@@ -6,10 +6,38 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <Product>FluentValidation.AspNetCore.Http</Product>
+    <Description>ASP.NET Core 7+ Minimal API integration for FluentValidation.</Description>
+    <PackageTags>FluentValidation, asp.net core, AspNetCore, minimal api, minimal hosting</PackageTags>
+    <RepositoryUrl>https://github.com/Carl-Hugo/FluentValidation.AspNetCore.Http</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <LangVersion>latest</LangVersion>
+    <IsPackable>True</IsPackable>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Authors>Carl-Hugo Marcotte</Authors>
+    <Copyright>Carl-Hugo Marcotte</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Carl-Hugo/FluentValidation.AspNetCore.Http</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IncludeSymbols>True</IncludeSymbols>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.*" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.*" PrivateAssets="All"/>
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.*" />
   </ItemGroup>
-    
+
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
