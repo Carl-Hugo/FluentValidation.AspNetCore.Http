@@ -42,9 +42,11 @@ jobs:
         run: dotnet pack --configuration ${{ env.BUILD_CONFIGURATION }}
 
       - run: echo 'PublicRelease=${{ steps.nbgv.outputs.PublicRelease }}'
-      # - name: Push to feedz.io
-      #   run: dotnet nuget push **/*.nupkg -k ${{ secrets.FEEDZ_API_KEY }} -s ${{ env.FEEDZ_SOURCE }}
-      #   if: github.event_name == 'pull_request'
+
+      - name: Push to feedz.io
+        run: dotnet nuget push **/*.nupkg -k ${{ secrets.FEEDZ_API_KEY }} -s ${{ env.FEEDZ_SOURCE }}
+        if: ${{ !steps.nbgv.outputs.PublicRelease }} #github.event_name == 'pull_request'
+
 
       # - name: Push to NuGet.org
       #   run: dotnet nuget push **/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
