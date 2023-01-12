@@ -47,11 +47,15 @@ public class FluentValidationEndpointFilter : IEndpointFilter
                 _logger.LogDebug("No validator found for argument {i}.", i);
                 if (_settings.ScanningStrategy == ScanningStrategy.ScanUntilNoValidatorFound)
                 {
-                    _logger.LogTrace(
-                        "Stopping validation at parameter {i} because of the '{ScanningStrategy}' scanning strategy.",
-                        i,
-                        _settings.ScanningStrategy
-                    );
+                    var nextIndex = i + 1;
+                    if (context.Arguments.Count != nextIndex)
+                    {
+                        _logger.LogTrace(
+                            "Stopping validation at parameter {i} because of the '{ScanningStrategy}' scanning strategy.",
+                            i,
+                            _settings.ScanningStrategy
+                        );
+                    }
                     break;
                 }
                 continue;
