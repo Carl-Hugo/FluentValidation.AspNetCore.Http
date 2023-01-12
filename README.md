@@ -41,6 +41,8 @@ builder.AddFluentValidationEndpointFilter();
 Once the registration is completed, you can add the filter to an endpoint like this:
 
 ```csharp
+using FluentValidation.AspNetCore.Http;
+//...
 app.MapGet("/some-path", (SomeParamToValidate model) => {
     // ...
 }).AddEndpointFilter<FluentValidationEndpointFilter>();
@@ -49,6 +51,8 @@ app.MapGet("/some-path", (SomeParamToValidate model) => {
 You can also add the filter to a group instead, which will apply it to all of its endpoints, like this:
 
 ```csharp
+using FluentValidation.AspNetCore.Http;
+//...
 var rootGroup = app
     .MapGroup("/")
     .AddEndpointFilter<FluentValidationEndpointFilter>()
