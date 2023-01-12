@@ -45,7 +45,7 @@ jobs:
 
       - name: Push to feedz.io
         run: dotnet nuget push **/*.nupkg -k ${{ secrets.FEEDZ_API_KEY }} -s ${{ env.FEEDZ_SOURCE }}
-        if: ${{ !steps.nbgv.outputs.PublicRelease }} #github.event_name == 'pull_request'
+        if: ${{ steps.nbgv.outputs.PublicRelease == 'false' }} #github.event_name == 'pull_request'
 
 
       # - name: Push to NuGet.org
