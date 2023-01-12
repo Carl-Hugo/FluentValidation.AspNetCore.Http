@@ -34,16 +34,18 @@ jobs:
         run: dotnet test --configuration ${{ env.BUILD_CONFIGURATION }}
 
       - uses: dotnet/nbgv@master
+        id: nbgv
         with:
           setAllVars: true
 
       - name: Pack
         run: dotnet pack --configuration ${{ env.BUILD_CONFIGURATION }}
 
-      - name: Push to feedz.io
-        run: dotnet nuget push **/*.nupkg -k ${{ secrets.FEEDZ_API_KEY }} -s ${{ env.FEEDZ_SOURCE }}
-        if: github.event_name == 'pull_request'
+      - run: echo 'PublicRelease=${{ steps.nbgv.outputs.PublicRelease }}'
+      # - name: Push to feedz.io
+      #   run: dotnet nuget push **/*.nupkg -k ${{ secrets.FEEDZ_API_KEY }} -s ${{ env.FEEDZ_SOURCE }}
+      #   if: github.event_name == 'pull_request'
 
-      - name: Push to NuGet.org
-        run: dotnet nuget push **/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
-        if: github.event_name == 'push'
+      # - name: Push to NuGet.org
+      #   run: dotnet nuget push **/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+      #   if: github.event_name == 'push'
