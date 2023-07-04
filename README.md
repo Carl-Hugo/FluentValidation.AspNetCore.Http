@@ -1,8 +1,8 @@
 # FluentValidation.AspNetCore.Http
 
 [![Build, Test, and Deploy](https://github.com/Carl-Hugo/FluentValidation.AspNetCore.Http/actions/workflows/main.yml/badge.svg)](https://github.com/Carl-Hugo/FluentValidation.AspNetCore.Http/actions/workflows/main.yml)
-[![NuGet.org](https://img.shields.io/nuget/vpre/FluentValidation.AspNetCore.Http)](https://www.nuget.org/packages/FluentValidation.AspNetCore.Http/)
-[![feedz.io](https://img.shields.io/badge/endpoint.svg?url=https%3A%2F%2Ff.feedz.io%2Fforevolve%2Ffluentvalidation%2Fshield%2FFluentValidation.AspNetCore.Http%2Flatest)](https://f.feedz.io/forevolve/fluentvalidation/packages/FluentValidation.AspNetCore.Http/latest/download)
+[![NuGet.org](https://img.shields.io/nuget/vpre/ForEvolve.FluentValidation.AspNetCore.Http)](https://www.nuget.org/packages/ForEvolve.FluentValidation.AspNetCore.Http/)
+[![feedz.io](https://img.shields.io/badge/endpoint.svg?url=https%3A%2F%2Ff.feedz.io%2Fforevolve%2Ffluentvalidation%2Fshield%2FForEvolve.FluentValidation.AspNetCore.Http%2Flatest)](https://f.feedz.io/forevolve/fluentvalidation/packages/ForEvolve.FluentValidation.AspNetCore.Http/latest/download)
 
 An ASP.NET Core 7+ Minimal API integration for [FluentValidation](https://github.com/FluentValidation/FluentValidation) 10+.
 
@@ -13,10 +13,10 @@ The package adds an `IEndpointFilter` that triggers FluentValidation's `IValidat
 ## How to install
 
 ```
-dotnet add package FluentValidation.AspNetCore.Http
+dotnet add package ForEvolve.FluentValidation.AspNetCore.Http
 ```
 
-> The pre-release feed URL is the following:
+> You can use the following pre-release feed URL:
 >
 > https://f.feedz.io/forevolve/fluentvalidation/nuget/index.json
 
@@ -93,5 +93,6 @@ Finally, you can configure the filter in the `appsettings.json` file under the `
 
 The only configuration at this time is the scanning strategy.
 
-1. You can tell the filter to scan all parameters (`ScanAllParams`), which enables you to not worry about parameter order since the filter will always try to validate all of them when it finds an `IValidator<T>` instance that matches its type. **This is the default behavior**.
-1. You can tell the filter to scan parameters until there is no validator found (`ScanUntilNoValidatorFound`). This forces you to add your objects to the lefthand side of the delegates. This is more optimal but comes with one constraint.
+1. `ScanAllParams` (**default behavior**): The filter scans all parameters. For each parameter, it tries to get an `IValidator<T>` instance from the ASP.NET Core container. When it finds one, the filter validates the parameter.
+1. `ScanUntilNoValidatorFound`: The filter scans parameters until it does not find a validator for a parameter. When that happens, the validation stops.
+   > When using this strategy, you must first add the objects to validate, then add the services or other injected types.
