@@ -9,23 +9,25 @@ on:
       - main
 
 env:
-  DOTNET_VERSION: "7.0.100"
   BUILD_CONFIGURATION: Release
   FEEDZ_SOURCE: https://f.feedz.io/forevolve/fluentvalidation/nuget/index.json
 
 jobs:
   build-test-and-deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: ["7.x", "8.x"]
 
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: Setup .NET Core ${{ env.DOTNET_VERSION }}
+      - name: Setup .NET Core ${{ matrix.dotnet-version }}
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
+          dotnet-version: ${{ matrix.dotnet-version }}
 
       - name: Build
         run: dotnet build --configuration ${{ env.BUILD_CONFIGURATION }}
