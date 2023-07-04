@@ -1,6 +1,5 @@
 ﻿using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
-using HttpResults = Microsoft.AspNetCore.Http.Results;
 
 namespace FluentValidation.AspNetCore.Http.ResultsFactory;
 public class SimpleResultsFactory : IFluentValidationEndpointFilterResultsFactory
@@ -13,6 +12,6 @@ public class SimpleResultsFactory : IFluentValidationEndpointFilterResultsFactor
         {
             errors.Add(error.Key, error.Select(x => x.ErrorMessage).ToArray());
         }
-        return HttpResults.ValidationProblem(errors);
+        return TypedResults.ValidationProblem(errors);
     }
 }

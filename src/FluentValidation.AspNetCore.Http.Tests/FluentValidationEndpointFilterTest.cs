@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using System.Net.Http.Json;
-using HttpResults = Microsoft.AspNetCore.Http.Results;
 
 namespace FluentValidation.AspNetCore.Http.Tests;
 
@@ -17,9 +16,9 @@ public class FluentValidationEndpointFilterTest
             configureApp: app => app
                 .MapPost("/", (MyEntity entity, CancellationToken cancellationToken) =>
                 {
-                    return HttpResults.Ok(entity);
+                    return TypedResults.Ok(entity);
                 })
-                .AddEndpointFilter<FluentValidationEndpointFilter>(),
+                .AddFluentValidationFilter(),
             configureFilter: settings => settings
                 .ScanningStrategy = ScanningStrategy.ScanAllParams
         );
@@ -84,9 +83,9 @@ public class FluentValidationEndpointFilterTest
                     configureApp: app => app
                         .MapPost("/{id}", (string id, MyEntity entity) =>
                         {
-                            return HttpResults.Ok(entity);
+                            return TypedResults.Ok(entity);
                         })
-                        .AddEndpointFilter<FluentValidationEndpointFilter>(),
+                        .AddFluentValidationFilter(),
                     configureFilter: settings => settings
                         .ScanningStrategy = ScanningStrategy.ScanAllParams
                 );
@@ -114,9 +113,9 @@ public class FluentValidationEndpointFilterTest
                     configureApp: app => app
                         .MapPost("/{id}", (string id, MyEntity entity) =>
                         {
-                            return HttpResults.Ok(entity);
+                            return TypedResults.Ok(entity);
                         })
-                        .AddEndpointFilter<FluentValidationEndpointFilter>(),
+                        .AddFluentValidationFilter(),
                     configureFilter: settings => settings
                         .ScanningStrategy = ScanningStrategy.ScanUntilNoValidatorFound
                 );
@@ -130,7 +129,6 @@ public class FluentValidationEndpointFilterTest
                 Assert.True(result.IsSuccessStatusCode);
                 Assert.Equal(HttpStatusCode.OK, result.StatusCode);
             }
-
         }
     }
 

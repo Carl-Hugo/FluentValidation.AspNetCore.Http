@@ -1,5 +1,7 @@
 ﻿using FluentValidation.AspNetCore.Http;
 using FluentValidation.AspNetCore.Http.ResultsFactory;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
@@ -22,6 +24,28 @@ public static class FluentValidationEndpointFilterExtensions
         ;
         builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<FluentValidationEndpointFilterSettings>>().Value);
         builder.Services.TryAddSingleton<IFluentValidationEndpointFilterResultsFactory, SimpleResultsFactory>();
+        return builder;
+    }
+
+    /// <summary>
+    /// Registers a filter of type <typeparamref name="FluentValidationEndpointFilter"/> onto the route handler.
+    /// </summary>
+    /// <param name="builder">The <see cref="RouteHandlerBuilder"/>.</param>
+    /// <returns>A <see cref="RouteHandlerBuilder"/> that can be used to further customize the route handler.</returns>
+    public static RouteHandlerBuilder AddFluentValidationFilter(this RouteHandlerBuilder builder)
+    {
+        builder.AddEndpointFilter<FluentValidationEndpointFilter>();
+        return builder;
+    }
+
+    /// <summary>
+    /// Registers a filter of type <typeparamref name="FluentValidationEndpointFilter"/> onto the route handler.
+    /// </summary>
+    /// <param name="builder">The <see cref="RouteGroupBuilder"/>.</param>
+    /// <returns>A <see cref="RouteGroupBuilder"/> that can be used to further customize the route handler.</returns>
+    public static RouteGroupBuilder AddFluentValidationFilter(this RouteGroupBuilder builder)
+    {
+        builder.AddEndpointFilter<FluentValidationEndpointFilter>();
         return builder;
     }
 }
