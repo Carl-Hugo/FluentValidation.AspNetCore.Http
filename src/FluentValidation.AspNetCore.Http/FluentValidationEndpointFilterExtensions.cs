@@ -1,5 +1,7 @@
 ﻿using FluentValidation.AspNetCore.Http;
+using FluentValidation.AspNetCore.Http.ResultsFactory;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 namespace Microsoft.AspNetCore.Builder;
@@ -19,6 +21,7 @@ public static class FluentValidationEndpointFilterExtensions
             .Configure(settings => configureOptions?.Invoke(settings))
         ;
         builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<FluentValidationEndpointFilterSettings>>().Value);
+        builder.Services.TryAddSingleton<IFluentValidationEndpointFilterResultsFactory, SimpleResultsFactory>();
         return builder;
     }
 }

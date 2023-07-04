@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics.CodeAnalysis;
-using HttpResults = Microsoft.AspNetCore.Http.Results;
 
 namespace FluentValidation.AspNetCore.Http;
 
@@ -12,12 +11,14 @@ namespace FluentValidation.AspNetCore.Http;
 public class FluentValidationEndpointFilter : IEndpointFilter
 {
     private readonly IServiceProvider _serviceProvider;
+    private readonly IFluentValidationEndpointFilterResultsFactory _resultsFactory;
     private readonly FluentValidationEndpointFilterSettings _settings;
     private readonly ILogger _logger;
 
-    public FluentValidationEndpointFilter(IServiceProvider serviceProvider, FluentValidationEndpointFilterSettings settings, ILogger<FluentValidationEndpointFilter> logger)
+    public FluentValidationEndpointFilter(IServiceProvider serviceProvider, IFluentValidationEndpointFilterResultsFactory resultsFactory, FluentValidationEndpointFilterSettings settings, ILogger<FluentValidationEndpointFilter> logger)
     {
         _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
+        _resultsFactory = resultsFactory ?? throw new ArgumentNullException(nameof(resultsFactory));
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
@@ -66,14 +67,12 @@ public class FluentValidationEndpointFilter : IEndpointFilter
             var results = await validator.ValidateAsync(validationContext, context.HttpContext.RequestAborted);
             if (!results.IsValid)
             {
-                var errors = new Dictionary<string, string[]>();
-                var errorByProperty = results.Errors.GroupBy(x => x.PropertyName);
-                foreach (var error in errorByProperty)
-                {
-                    errors.Add(error.Key, error.Select(x => x.ErrorMessage).ToArray());
-                }
-                _logger.LogInformation("The validator of argument {i} found {n} errors.", i, errors.Count);
-                return HttpResults.ValidationProblem(errors);
+                _logger.LogInformation(
+                    "The validator of argument {i} found {n} errors.",
+                    i,
+                    results.Errors.Count
+                );
+                return _resultsFactory.Create(results);
             }
         }
         return await next(context);
