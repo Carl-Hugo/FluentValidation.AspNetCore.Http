@@ -9,7 +9,8 @@ on:
       - main
 
 env:
-  DOTNET_VERSION: "7.0.100"
+  DOTNET_VERSION: "8.x"
+  DOTNET_QUALITY: "preview" # preview, ga
   BUILD_CONFIGURATION: Release
   FEEDZ_SOURCE: https://f.feedz.io/forevolve/fluentvalidation/nuget/index.json
 
@@ -23,9 +24,10 @@ jobs:
           fetch-depth: 0
 
       - name: Setup .NET Core ${{ env.DOTNET_VERSION }}
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+          dotnet-quality: ${{ env.DOTNET_QUALITY }}
 
       - name: Build
         run: dotnet build --configuration ${{ env.BUILD_CONFIGURATION }}
@@ -45,9 +47,8 @@ jobs:
 
       - name: Push to feedz.io
         run: dotnet nuget push **/*.nupkg -k ${{ secrets.FEEDZ_API_KEY }} -s ${{ env.FEEDZ_SOURCE }}
-        if: ${{ steps.nbgv.outputs.PublicRelease == 'false' }} #github.event_name == 'pull_request'
+        if: ${{ steps.nbgv.outputs.PublicRelease == 'false' }} # github.event_name == 'pull_request'
 
-
-      # - name: Push to NuGet.org
-      #   run: dotnet nuget push **/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
-      #   if: github.event_name == 'push'
+      - name: Push to NuGet.org
+        run: dotnet nuget push **/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+        if: ${{ steps.nbgv.outputs.PublicRelease == 'true' && github.event_name == 'push' }}
