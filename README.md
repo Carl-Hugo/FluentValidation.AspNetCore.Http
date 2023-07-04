@@ -4,7 +4,7 @@
 [![NuGet.org](https://img.shields.io/nuget/vpre/FluentValidation.AspNetCore.Http)](https://www.nuget.org/packages/FluentValidation.AspNetCore.Http/)
 [![feedz.io](https://img.shields.io/badge/endpoint.svg?url=https%3A%2F%2Ff.feedz.io%2Fforevolve%2Ffluentvalidation%2Fshield%2FFluentValidation.AspNetCore.Http%2Flatest)](https://f.feedz.io/forevolve/fluentvalidation/packages/FluentValidation.AspNetCore.Http/latest/download)
 
-An ASP.NET Core 7+ Minimal API integration for [FluentValidation](https://github.com/FluentValidation/FluentValidation).
+An ASP.NET Core 7+ Minimal API integration for [FluentValidation](https://github.com/FluentValidation/FluentValidation) 10+.
 
 The package adds an `IEndpointFilter` that triggers FluentValidation's `IValidator<T>` implementations. In case of a validation error, the filter returns a `HttpResults.ValidationProblem(errors);`, where the `errors` argument represents the collection of failures.
 
