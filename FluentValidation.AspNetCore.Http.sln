@@ -7,7 +7,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DC2C8392-C86
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentValidation.AspNetCore.Http", "src\FluentValidation.AspNetCore.Http\FluentValidation.AspNetCore.Http.csproj", "{DBAB7A74-6842-47DD-9F00-3DAFD7D1007E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentValidation.AspNetCore.Http.Tests", "src\FluentValidation.AspNetCore.Http.Tests\FluentValidation.AspNetCore.Http.Tests.csproj", "{48C64E19-8CF9-4214-B834-1E7A4E84B9FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentValidation.AspNetCore.Http.Tests", "src\FluentValidation.AspNetCore.Http.Tests\FluentValidation.AspNetCore.Http.Tests.csproj", "{48C64E19-8CF9-4214-B834-1E7A4E84B9FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{6CB81A35-8D15-4FCB-ADD5-C6D5AA9C5983}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "simple", "examples\simple\simple.csproj", "{5F16E0D5-EC02-41E7-BF79-51760ECEBB52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +27,10 @@ Global
 		{48C64E19-8CF9-4214-B834-1E7A4E84B9FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48C64E19-8CF9-4214-B834-1E7A4E84B9FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48C64E19-8CF9-4214-B834-1E7A4E84B9FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F16E0D5-EC02-41E7-BF79-51760ECEBB52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F16E0D5-EC02-41E7-BF79-51760ECEBB52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F16E0D5-EC02-41E7-BF79-51760ECEBB52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F16E0D5-EC02-41E7-BF79-51760ECEBB52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,5 +38,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{DBAB7A74-6842-47DD-9F00-3DAFD7D1007E} = {DC2C8392-C860-41F1-B6EE-90237B3DA80F}
 		{48C64E19-8CF9-4214-B834-1E7A4E84B9FC} = {DC2C8392-C860-41F1-B6EE-90237B3DA80F}
+		{5F16E0D5-EC02-41E7-BF79-51760ECEBB52} = {6CB81A35-8D15-4FCB-ADD5-C6D5AA9C5983}
 	EndGlobalSection
 EndGlobal

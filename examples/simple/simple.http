@@ -1,0 +1,23 @@
+﻿@simple_HostAddress = https://localhost:7045
+
+POST {{simple_HostAddress}}/
+Content-Type: application/json
+
+{
+    "name": "valid"
+}
+
+###
+
+POST {{simple_HostAddress}}/
+Content-Type: application/json
+
+{
+}
+
+###
+
+POST {{simple_HostAddress}}/
+Content-Type: application/json
+
+###

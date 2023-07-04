@@ -6,7 +6,7 @@
 public class FluentValidationEndpointFilterSettings
 {
     /// <summary>
-    /// The dependency scanning stragtegy.<br /><br />
+    /// The dependency scanning strategy.<br /><br />
     /// <strong>Default:</strong> <see cref="ScanningStrategy.ScanAllParams"/>.
     /// </summary>
     public required ScanningStrategy ScanningStrategy { get; set; } = ScanningStrategy.ScanAllParams;
@@ -18,15 +18,17 @@ public class FluentValidationEndpointFilterSettings
 public enum ScanningStrategy
 {
     /// <summary>
-    /// The validation will be done for all Arguments.
+    /// The filter scans all parameters.
+    /// For each parameter, it tries to get an <see cref="IValidator&lt;T&rt;"/> instance from the ASP.NET Core container.
+    /// When it finds one, the filter validates the parameter.
     /// </summary>
     ScanAllParams,
 
     /// <summary>
-    /// The validation will stop scanning for Arguments after the first argument is found without a validator.
+    /// The filter scans parameters until it does not find a validator for a parameter. When that happens, the validation stops.
     /// </summary>
     /// <remarks>
-    /// This is an optimal scanning strategy, but it requires to put the parameters to validate first.
+    /// This can be a more optimal scanning strategy, but the parameters to validate must be the first ones of the endpoint delegate.
     /// </remarks>
     ScanUntilNoValidatorFound
 }
