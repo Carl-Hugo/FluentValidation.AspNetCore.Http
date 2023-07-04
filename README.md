@@ -76,7 +76,10 @@ builder.AddFluentValidationEndpointFilter(settings => {
 You can also leverage ASP.NET Core `Configure` and `PostConfigure` methods as usual, like this:
 
 ```csharp
-// TODO
+builder.Services.Configure<FluentValidationEndpointFilterSettings>(options =>
+{
+    options.ScanningStrategy = ScanningStrategy.ScanUntilNoValidatorFound;
+});
 ```
 
 Finally, you can configure the filter in the `appsettings.json` file under the `FluentValidationEndpointFilter` key, like this:
@@ -84,7 +87,7 @@ Finally, you can configure the filter in the `appsettings.json` file under the `
 ```json
 {
   "FluentValidationEndpointFilter": {
-    // TODO
+    "ScanningStrategy": "ScanUntilNoValidatorFound"
   }
 }
 ```
