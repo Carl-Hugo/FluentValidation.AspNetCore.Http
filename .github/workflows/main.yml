@@ -9,26 +9,25 @@ on:
       - main
 
 env:
+  DOTNET_VERSION: "8.x"
+  DOTNET_QUALITY: "preview" # preview, ga
   BUILD_CONFIGURATION: Release
   FEEDZ_SOURCE: https://f.feedz.io/forevolve/fluentvalidation/nuget/index.json
 
 jobs:
   build-test-and-deploy:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        dotnet-version: ["7.x", "8.x"]
 
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: Setup .NET Core ${{ matrix.dotnet-version }}
+      - name: Setup .NET Core ${{ env.DOTNET_VERSION }}
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: ${{ matrix.dotnet-version }}
-          dotnet-quality: "preview"
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          dotnet-quality: ${{ env.DOTNET_QUALITY }}
 
       - name: Build
         run: dotnet build --configuration ${{ env.BUILD_CONFIGURATION }}
