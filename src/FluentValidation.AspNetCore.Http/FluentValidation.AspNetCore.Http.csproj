@@ -8,8 +8,8 @@
 
   <PropertyGroup>
     <Product>FluentValidation.AspNetCore.Http</Product>
-    <Description>ASP.NET Core 7+ Minimal API integration for FluentValidation 10+.</Description>
-    <PackageTags>fluentvalidation fluent-validation asp-net-core minimal-api</PackageTags>
+    <Description>ASP.NET Core 7+ Minimal API integration for FluentValidation 10+. Add an endpoint filter that connects FluentValidation into Minimal API.</Description>
+    <PackageTags>fluentvalidation fluent-validation asp-net-core minimal-api minimal api fluent validation asp net core filter endpoint aspnet aspnetcore netcore</PackageTags>
     <RepositoryUrl>https://github.com/Carl-Hugo/FluentValidation.AspNetCore.Http</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <LangVersion>latest</LangVersion>
